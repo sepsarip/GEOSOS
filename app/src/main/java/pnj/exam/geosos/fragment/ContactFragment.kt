@@ -9,13 +9,16 @@ import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.provider.ContactsContract
+import android.widget.Toast
+import pnj.exam.geosos.viewmodel.ContactViewModel
 
 class ContactFragment : Fragment(), ContactAdapter.OnItemCheckListener {
 
-    private lateinit var selectedContacts: MutableList<DataKontak>
+    private lateinit var contactViewModel: ContactViewModel
     private lateinit var recyclerView: RecyclerView
 
     private val REQUEST_CONTACTS_PERMISSION = 1
@@ -24,14 +27,12 @@ class ContactFragment : Fragment(), ContactAdapter.OnItemCheckListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_contact, container, false)
 
-        selectedContacts = mutableListOf()
-
-        // Initialize RecyclerView
         recyclerView = view.findViewById(R.id.recycler_view_contacts)
         recyclerView.layoutManager = LinearLayoutManager(context)
+
+        contactViewModel = ViewModelProvider(requireActivity()).get(ContactViewModel::class.java)
 
         requestContactsPermission()
 
@@ -62,6 +63,7 @@ class ContactFragment : Fragment(), ContactAdapter.OnItemCheckListener {
                 loadContacts()
             } else {
                 // Permission denied
+                Toast.makeText(requireContext(), "You not give permission", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -93,10 +95,10 @@ class ContactFragment : Fragment(), ContactAdapter.OnItemCheckListener {
     }
 
     override fun onItemCheck(item: DataKontak) {
-        selectedContacts.add(item)
+        contactViewModel.addContact(item)
     }
 
     override fun onItemUncheck(item: DataKontak) {
-        selectedContacts.remove(item)
+        contactViewModel.removeContact(item)
     }
 }

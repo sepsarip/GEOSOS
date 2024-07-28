@@ -2,17 +2,30 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:gravity="center">
 
-<Button
-    android:id="@+id/btnSendSOS"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Send SOS"
-    android:layout_gravity="center"/>
+    <TextView
+        android:id="@+id/tvLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Location will be displayed here"
+        android:layout_margin="16dp" />
 
-<ListView
-    android:id="@+id/listViewContacts"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"/>
+    <Button
+        android:id="@+id/btnSendSOS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Send SOS"/>
+
+    <Button
+        android:id="@+id/btnSendSOS_SMS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Send SOS VIA SMS"/>
+
+    <ListView
+        android:id="@+id/listViewContacts"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 </LinearLayout>
